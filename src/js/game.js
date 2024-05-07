@@ -11,11 +11,23 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
+
+        const bg = new Actor()
+        bg.graphics.use(Resources.Background.toSprite())
+        this.add(bg)
+
         const fish = new Actor()
         fish.graphics.use(Resources.Fish.toSprite())
         fish.pos = new Vector(400, 300)
         fish.vel = new Vector(-10,0)
         this.add(fish)
+
+        const eyes = new Actor()
+        eyes.graphics.use(Resources.Eyes.toSprite())
+        eyes.pos = new Vector(200, 200)
+        eyes.vel = new Vector(-10,0)
+        this.add(eyes)
+
     }
 }
 
