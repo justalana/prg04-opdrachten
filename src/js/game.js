@@ -1,33 +1,37 @@
 import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
+import { Actor, Engine, Vector, Keys } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Fish } from './fish.js'
+import { Player } from './player.js'
 
 export class Game extends Engine {
 
     constructor() {
         super({ width: 800, height: 600 })
         this.start(ResourceLoader).then(() => this.startGame())
+        this.fishes = []
     }
 
     startGame() {
-        console.log("start de game!")
+        console.log("start de game!")     
 
-        const bg = new Actor()
-        bg.graphics.use(Resources.Background.toSprite())
-        this.add(bg)
+        for(let i = 0; i <20; i++) {
+           this.createFish()
+        }
 
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(400, 300)
-        fish.vel = new Vector(-10,0)
+        const player = new Player()
+        this.add(player)
+    }
+
+    createFish() {
+        const fish = new Fish()
         this.add(fish)
+        this.fishes.push(fish)
+    }
 
-        const eyes = new Actor()
-        eyes.graphics.use(Resources.Eyes.toSprite())
-        eyes.pos = new Vector(200, 200)
-        eyes.vel = new Vector(-10,0)
-        this.add(eyes)
-
+    createPlayer() {
+        const player = new Player(Resources.Player.toSprite())
+        this.add(player)
     }
 }
 
