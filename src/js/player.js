@@ -1,13 +1,18 @@
 import { Actor, Engine, Vector, Keys } from 'excalibur'
 import { Resources, ResourceLoader } from './resources.js'
 import { Fish } from './fish.js'
+import { Coin } from './coin.js'
 
 export class Player extends Actor {
+
     constructor() {
-        super({width: 100, height: 100 })
+        super({width: 70, height: 70 })
     }
 
     onInitialize(engine) {
+        this.score = 0
+        this.health = 100
+
         this.graphics.use(Resources.Player.toSprite());
         this.pos = new Vector(400, 400);
         this.vel = new Vector(0, 0);
@@ -46,9 +51,14 @@ export class Player extends Actor {
 
     hitSomething(event) {
         if(event.other instanceof Fish) {
-             console.log("the devil hits the fish")
-             this.kill()           // remove the car
-             event.other.kill()    // remove the tree
+            this.health -= 10
+            event.other.kill()
+            console.log(`Ohno your health = ${this.health}`)    // remove the tree
         }
+        if(event.other instanceof Coin) {
+          this.score += 1
+          event.other.kill()
+          console.log(`Your points: ${this.score}`)
+     }
     }
   }

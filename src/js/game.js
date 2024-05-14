@@ -3,6 +3,7 @@ import { Actor, Engine, Vector, Keys } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Fish } from './fish.js'
 import { Player } from './player.js'
+import { Coin } from './coin.js'
 
 export class Game extends Engine {
 
@@ -19,6 +20,10 @@ export class Game extends Engine {
            this.createFish()
         }
 
+        for(let i = 0; i <20; i++) {
+            this.createCoin()
+         }
+
         const player = new Player()
         this.add(player)
     }
@@ -29,9 +34,9 @@ export class Game extends Engine {
         this.fishes.push(fish)
     }
 
-    createPlayer() {
-        const player = new Player(Resources.Player.toSprite())
-        this.add(player)
+    createCoin() {
+        const coin = new Coin()
+        this.add(coin)
     }
 }
 
